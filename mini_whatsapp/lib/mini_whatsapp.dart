@@ -4,6 +4,8 @@ import 'core/theme/theme.dart';
 import 'core/utils/constants/strings.dart';
 import 'features/auth/presentation/views/login_view.dart';
 import 'features/auth/presentation/views/sign_up_view.dart';
+import 'features/chats/presentation/view/chats_details_view.dart';
+import 'features/profile/presentation/view/profile_view.dart';
 import 'features/splash/splash_view.dart';
 import 'navigation_menu.dart';
 
@@ -28,6 +30,8 @@ class MiniWhatsapp extends StatelessWidget {
       '/navigation': (context) => const NavigationMenu(),
       '/login': (context) => const LoginView(),
       '/signup': (context) => const SignUpView(),
+      '/chatDetails': (context) => const ChatDetailsView(),
+      '/profile': (context) => const ProfileView(),
     };
   }
 }
