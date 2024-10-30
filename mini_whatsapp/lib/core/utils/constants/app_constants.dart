@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../features/calls/presentation/view/calls_view.dart';
+import '../../../features/chats/presentation/view/chats_view.dart';
+import '../../../features/status/presentation/view/status_view.dart';
+
 class AppConstants {
   AppConstants._();
 
@@ -19,8 +23,8 @@ class AppConstants {
       ];
 
   static List<Widget> screens = const [
-    Scaffold(body: Center(child: Text("Chats", style: TextStyle(fontSize: 32)))),
-    Scaffold(body: Center(child: Text("Status", style: TextStyle(fontSize: 32)))),
-    Scaffold(body: Center(child: Text("Calls", style: TextStyle(fontSize: 32)))),
+    ChatView(), // Scaffold(body: Center(child: Text("Chats", style: TextStyle(fontSize: 32)))),
+    StatusScreen(), //  Scaffold(body: Center(child: Text("Status", style: TextStyle(fontSize: 32)))),
+    CallScreen(), //  Scaffold(body: Center(child: Text("Calls", style: TextStyle(fontSize: 32)))),
   ];
 }
