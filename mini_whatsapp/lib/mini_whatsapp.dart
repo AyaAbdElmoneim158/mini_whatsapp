@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'core/theme/theme.dart';
 import 'core/utils/constants/strings.dart';
+import 'features/auth/presentation/views/login_view.dart';
 import 'features/splash/splash_view.dart';
 import 'navigation_menu.dart';
 
@@ -24,6 +25,7 @@ class MiniWhatsapp extends StatelessWidget {
     return {
       '/': (context) => const SplashView(),
       '/navigation': (context) => const NavigationMenu(),
+      '/login': (context) => const LoginView(),
     };
   }
 }
