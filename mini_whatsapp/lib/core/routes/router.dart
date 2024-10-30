@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../features/splash/splash_view.dart';
-import '../../mini_whatsapp.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -14,7 +13,7 @@ class AppRouter {
 
       case AppRoutes.noFoundRoute:
       default:
-        return pageTransition(settings, const NotFoundPage());
+        return pageTransition(settings, const Scaffold());
     }
   }
 

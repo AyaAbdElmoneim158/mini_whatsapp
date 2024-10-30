@@ -9,15 +9,13 @@ class AppStyles {
     color: AppColors.textPrimary,
   );
 
-  static TextStyle font24BlackBold(context) =>
-      Theme.of(context).textTheme.headlineMedium!.copyWith(
-            fontWeight: FontWeight.bold,
-          );
+  static TextStyle font24BlackBold(context) => Theme.of(context).textTheme.headlineMedium!.copyWith(
+        fontWeight: FontWeight.bold,
+      );
 
-  static TextStyle font14BlackRegular(context) =>
-      Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontWeight: FontWeight.w400,
-          );
+  static TextStyle font14BlackRegular(context) => Theme.of(context).textTheme.bodySmall!.copyWith(
+        fontWeight: FontWeight.w400,
+      );
 
   static TextStyle font14LightGrayRegular = const TextStyle(
     fontSize: 14,
@@ -83,7 +81,9 @@ class AppStyles {
     color: AppColors.lightGrey,
   );
 
-  // TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color:  greyColor.withOpacity(.6)
+  static Decoration? bottomNavigationDecoration = const BoxDecoration(
+    color: AppColors.backgroundLight,
+  );
 }
 
 class FontWeightHelper {
