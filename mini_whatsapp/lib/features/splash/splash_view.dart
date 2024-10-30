@@ -15,7 +15,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    // _navigateToLogin(context);
+    _navigateToLogin(context);
   }
 
   void _navigateToLogin(BuildContext context) {
