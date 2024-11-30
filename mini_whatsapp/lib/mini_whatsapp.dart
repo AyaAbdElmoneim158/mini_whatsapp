@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/theme/theme.dart';
 import 'core/utils/constants/strings.dart';
@@ -8,6 +9,9 @@ import 'features/chats/presentation/view/chats_details_view.dart';
 import 'features/profile/presentation/view/profile_view.dart';
 import 'features/splash/splash_view.dart';
 import 'navigation_menu.dart';
+import 'injection_container.dart'; // Assuming your DI is set up
+
+import 'features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 
 class MiniWhatsapp extends StatelessWidget {
   const MiniWhatsapp({super.key});
@@ -26,8 +30,11 @@ class MiniWhatsapp extends StatelessWidget {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-      '/': (context) => const SplashView(),
-      '/navigation': (context) => const NavigationMenu(),
+      '/': (context) => BlocProvider<AuthCubit>(
+            create: (_) => sl<AuthCubit>(),
+            child: const SplashView(),
+          ),
+      '/home': (context) => const NavigationMenu(),
       '/login': (context) => const LoginView(),
       '/signup': (context) => const SignUpView(),
       '/chatDetails': (context) => const ChatDetailsView(),
