@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/common/app_button.dart';
 import '../../../../../../core/utils/constants/sizes.dart';
 import '../../../../../../core/utils/constants/strings.dart';
-import '../../../../../../core/utils/function_helper.dart';
 
 class SignUpButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -12,6 +11,7 @@ class SignUpButton extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController phoneController;
+  final void Function() onPressed;
 
   const SignUpButton({
     super.key,
@@ -20,18 +20,13 @@ class SignUpButton extends StatelessWidget {
     required this.passwordController,
     required this.emailController,
     required this.phoneController,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppButton(
-      onPressed: () {
-        if (formKey.currentState?.validate() ?? false) {
-          HelperFunctions.showSnackbar(context, message: "Login.....!");
-          HelperFunctions.showSnackbar(context, message: "Congratulations on successfully signing up! 🎉");
-          // Navigator.of(context).pushReplacementNamed('/navigation');
-        }
-      },
+      onPressed: onPressed,
       text: AppStrings.login,
       padding: AppSizes.lg - 4,
     );

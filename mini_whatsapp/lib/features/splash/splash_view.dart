@@ -1,8 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/common/full_scroll_screen_container.dart';
 import '../../core/utils/constants/images.dart';
 import '../../core/utils/function_helper.dart';
+import '../auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -15,12 +17,20 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    _navigateToLogin(context);
+    _navigateBasedOnAuth(context); // Check authentication status and navigate
   }
 
-  void _navigateToLogin(BuildContext context) {
+  void _navigateBasedOnAuth(BuildContext context) {
+    context.read<AuthCubit>().checkAuthStatus();
+
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacementNamed('/login');
+      context.read<AuthCubit>().stream.listen((state) {
+        if (state is AuthSuccessState) {
+          Navigator.of(context).pushReplacementNamed('/home');
+        } else if (state is AuthErrorState || state is AuthInitial) {
+          Navigator.of(context).pushReplacementNamed('/login');
+        }
+      });
     });
   }
 
