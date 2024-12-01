@@ -12,20 +12,27 @@ import 'navigation_menu.dart';
 import 'injection_container.dart'; // Assuming your DI is set up
 
 import 'features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MiniWhatsapp extends StatelessWidget {
   const MiniWhatsapp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: AppStrings.appName,
-      themeMode: ThemeMode.light,
-      theme: AppTheme.lightTheme,
-      initialRoute: '/',
-      routes: _buildRoutes(),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: AppStrings.appName,
+            themeMode: ThemeMode.light,
+            theme: AppTheme.lightTheme,
+            initialRoute: '/',
+            routes: _buildRoutes(),
+          );
+        });
   }
 
   Map<String, WidgetBuilder> _buildRoutes() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_whatsapp/mini_whatsapp.dart';
 
 import '../../../../core/common/full_scroll_screen_container.dart';
 import '../../../../core/utils/constants/sizes.dart';

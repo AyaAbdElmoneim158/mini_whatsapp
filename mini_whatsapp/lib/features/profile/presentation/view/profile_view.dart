@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../auth/presentation/view_model/auth_cubit/auth_cubit.dart';
 
 class ProfileView extends StatelessWidget {
@@ -42,11 +43,11 @@ class ProfileView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         _buildProfilePicture(user),
-        const SizedBox(height: 20),
+        SizedBox(height: 20.h),
         _buildProfileField("Name", user?.displayName ?? "Unknown", Icons.person),
-        const SizedBox(height: 15),
+        SizedBox(height: 15.h),
         _buildProfileField("Email", user?.email ?? "Unknown", Icons.email),
-        const SizedBox(height: 15),
+        SizedBox(height: 15.h),
         _buildProfileField("Phone", user?.phoneNumber ?? "Unknown", Icons.phone),
       ],
     );
@@ -89,7 +90,7 @@ class ProfileView extends StatelessWidget {
             color: Colors.grey[600],
           ),
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: 5.h),
         TextField(
           enabled: false,
           decoration: InputDecoration(

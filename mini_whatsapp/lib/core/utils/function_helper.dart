@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'constants/colors.dart';
 
@@ -100,7 +101,7 @@ class HelperFunctions {
             content: Row(
               children: [
                 const CircularProgressIndicator(),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w),
                 Expanded(
                   child: Text(message ?? 'Loading...'),
                 ),

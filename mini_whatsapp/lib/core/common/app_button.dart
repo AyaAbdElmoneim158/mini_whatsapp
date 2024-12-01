@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/constants/colors.dart';
 import '../utils/constants/sizes.dart';
@@ -42,8 +43,8 @@ class AppButton extends StatelessWidget {
         onPressed: isLoading ? null : onPressed,
         child: isLoading
             ? SizedBox(
-                width: 24.0,
-                height: 24.0,
+                width: 24.0.w,
+                height: 24.0.h,
                 child: CircularProgressIndicator(
                   color: textColor ?? AppColors.textWhite,
                   strokeWidth: 2.5,
@@ -53,7 +54,7 @@ class AppButton extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (icon != null) Icon(icon, color: textColor ?? AppColors.textWhite),
-                  if (icon != null) const SizedBox(width: AppSizes.xs),
+                  if (icon != null) SizedBox(width: AppSizes.xs.w),
                   Text(
                     text,
                     style: TextStyle(

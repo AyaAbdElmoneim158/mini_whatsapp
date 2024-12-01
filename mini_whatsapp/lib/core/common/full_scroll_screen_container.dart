@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/constants/sizes.dart';
 
@@ -24,8 +25,8 @@ class FullScrollScreenContainer extends StatelessWidget {
           child: Padding(
             padding: padding ?? EdgeInsets.all(AppSizes.defaultPadding),
             child: SizedBox(
-              height: hasHight ? MediaQuery.of(context).size.height : null,
-              width: MediaQuery.of(context).size.width,
+              height: hasHight ? MediaQuery.of(context).size.height.h : null,
+              width: MediaQuery.of(context).size.width.w,
               child: body,
             ),
           ),

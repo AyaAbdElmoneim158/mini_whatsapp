@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../data/models/call_model.dart';
 
 class CallScreen extends StatelessWidget {
@@ -56,7 +57,7 @@ class CallScreen extends StatelessWidget {
           size: 16,
           color: call.isMissed ? Colors.red : Colors.green,
         ),
-        const SizedBox(width: 5),
+        SizedBox(width: 5.w),
         Text(call.time),
       ],
     );

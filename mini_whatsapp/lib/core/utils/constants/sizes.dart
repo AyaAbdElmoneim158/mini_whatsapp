@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppSizes {
   AppSizes._();
@@ -24,16 +25,16 @@ class AppSizes {
   static double defaultPadding = 24.0;
   static double defaultBtwFields = 20.0;
 
-  static const double borderRadiusSm = 4.0;
-  static const double borderRadiusMd = 8.0;
-  static const double borderRadiusLg = 12.0;
+  static double borderRadiusSm = 4.0.r;
+  static double borderRadiusMd = 8.0.r;
+  static double borderRadiusLg = 12.0.r;
 
   static const double borderSide = 1.0;
 
-  static SizedBox verticalSpace(double height) => SizedBox(height: height);
-  static SizedBox horizontalSpace(double width) => SizedBox(width: width);
+  static SizedBox verticalSpace(double height) => SizedBox(height: height.h);
+  static SizedBox horizontalSpace(double width) => SizedBox(width: width.w);
 
-  static double dividerHeight = 1.0;
-  static double appBarHeight = 56.0;
-  static double bottomNavigationBarHeight = 74;
+  static double dividerHeight = 1.0.h;
+  static double appBarHeight = 56.0.h;
+  static double bottomNavigationBarHeight = 74.h;
 }
