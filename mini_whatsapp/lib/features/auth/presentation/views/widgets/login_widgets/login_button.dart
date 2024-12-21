@@ -6,15 +6,9 @@ import '../../../../../../core/utils/constants/sizes.dart';
 import '../../../../../../core/utils/constants/strings.dart';
 
 class LoginButton extends StatelessWidget {
-  final GlobalKey<FormState> formKey;
-  final TextEditingController usernameController;
-  final TextEditingController passwordController;
   final void Function() onPressed;
   const LoginButton({
     super.key,
-    required this.formKey,
-    required this.usernameController,
-    required this.passwordController,
     required this.onPressed,
   });
 

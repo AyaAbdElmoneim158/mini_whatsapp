@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dartz/dartz.dart';
 import '../../../../../core/utils/error/failure.dart';
+import '../../../data/models/user.dart';
 import '../../../data/repo/auth_repo/auth_repo.dart';
 part 'auth_state.dart';
 
@@ -58,9 +59,9 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> register({required String email, required String password}) async {
+  Future<void> register({required UserModel user}) async {
     emit(AuthLoadingState());
-    final result = await authRepo.register(email: email, password: password);
+    final result = await authRepo.register(user: user);
     result.fold(
       (failure) => emit(AuthErrorState(failure.message)),
       (user) => emit(AuthSuccessState()),

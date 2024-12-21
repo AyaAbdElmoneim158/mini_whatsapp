@@ -1,13 +1,20 @@
+import 'package:uuid/uuid.dart';
 import '../../../../../core/utils/helper/auth_helper.dart';
+import '../../models/user.dart';
 import 'auth_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../../core/utils/error/failure.dart';
+import '../../../../../core/utils/helper/firestore_helper.dart';
 
 class AuthRepoImpl implements AuthRepo {
-  AuthRepoImpl(this.authHelper);
+  AuthRepoImpl(this.authHelper, this.firestoreHelper);
 
   final AuthHelper authHelper;
+  final FirestoreHelper firestoreHelper;
+
+  // UUID generator instance
+  final Uuid _uuid = Uuid();
 
   @override
   Future<Either<Failure, User?>> login({
@@ -22,11 +29,19 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, User?>> register({
-    required String email,
-    required String password,
+    required UserModel user,
   }) async {
     return await _handleAuthOperation(
-      () => authHelper.signUpWithEmailAndPassword(email: email, password: password),
+      () async {
+        final authUser = await authHelper.signUpWithEmailAndPassword(
+          email: user.email!,
+          password: user.password!,
+        );
+        if (authUser != null) {
+          await _registerUserInFirestore(user);
+        }
+        return authUser;
+      },
       errorMessage: 'Registration failed',
     );
   }
@@ -47,7 +62,16 @@ class AuthRepoImpl implements AuthRepo {
     );
   }
 
-  // Private helper method for async operations
+  // Private method to register user in Firestore
+  Future<void> _registerUserInFirestore(UserModel user) async {
+    final userId = _uuid.v4();
+    final userData = user.toJson();
+    await firestoreHelper.setData(
+      path: 'users/$userId',
+      data: userData,
+    );
+  }
+
   Future<Either<Failure, T>> _handleAuthOperation<T>(
     Future<T> Function() operation, {
     required String errorMessage,
