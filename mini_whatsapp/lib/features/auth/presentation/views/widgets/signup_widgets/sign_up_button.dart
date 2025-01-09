@@ -27,8 +27,8 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton(
       onPressed: onPressed,
-      text: AppStrings.login,
-      padding: AppSizes.lg - 4,
+      text: AppStrings.signUp,
+      padding: AppSizes.md,
     );
   }
 }

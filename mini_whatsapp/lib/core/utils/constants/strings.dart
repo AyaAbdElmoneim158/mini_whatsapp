@@ -61,4 +61,5 @@ class AppStrings {
   static const String phone = "Enter your phone";
   static const String password = "Enter your Password";
   static const String login = "Login";
+  static const String signUp = "Sign up";
 }

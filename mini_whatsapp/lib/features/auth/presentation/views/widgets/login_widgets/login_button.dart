@@ -17,7 +17,7 @@ class LoginButton extends StatelessWidget {
     return AppButton(
       onPressed: onPressed,
       text: AppStrings.login,
-      padding: AppSizes.lg - 4,
+      padding: AppSizes.md,
     );
   }
 }

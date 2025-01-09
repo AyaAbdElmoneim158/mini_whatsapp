@@ -1,22 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mini_whatsapp/features/chats/data/repo/chat_repo_impl.dart';
 
 import 'core/utils/helper/auth_helper.dart';
 import 'core/utils/helper/firestore_helper.dart';
 import 'features/auth/data/repo/auth_repo/auth_repo.dart';
 import 'features/auth/data/repo/auth_repo/auth_repo_impl.dart';
 import 'features/auth/presentation/view_model/auth_cubit/auth_cubit.dart';
+import 'features/chats/data/repo/chat_repo.dart';
+import 'features/chats/presentation/view_model/chat_cubit.dart';
 import 'features/profile/data/repo/profile_repo.dart';
 import 'features/profile/data/repo/profile_repo_impl.dart';
 import 'features/profile/presentation/view_model/profile_cubit.dart';
 
 final sl = GetIt.instance;
 
-Future<void> init() async {
+Future<void> setupLocator() async {
   _initFirebaseServices();
   _initAuth();
   _initProfile();
+  _initChats();
 }
 
 void _initFirebaseServices() {
@@ -37,4 +41,9 @@ void _initAuth() {
 void _initProfile() {
   sl.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(FirestoreHelper.instance));
   sl.registerFactory(() => ProfileCubit(sl<ProfileRepo>()));
+}
+
+void _initChats() {
+  sl.registerLazySingleton<ChatRepo>(() => ChatRepoImpl(FirestoreHelper.instance));
+  sl.registerFactory(() => ChatCubit(sl<ChatRepo>()));
 }

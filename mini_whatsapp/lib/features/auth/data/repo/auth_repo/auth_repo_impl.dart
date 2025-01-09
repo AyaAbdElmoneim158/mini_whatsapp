@@ -14,7 +14,7 @@ class AuthRepoImpl implements AuthRepo {
   final FirestoreHelper firestoreHelper;
 
   // UUID generator instance
-  final Uuid _uuid = Uuid();
+  final Uuid _uuid = const Uuid();
 
   @override
   Future<Either<Failure, User?>> login({
@@ -67,7 +67,7 @@ class AuthRepoImpl implements AuthRepo {
     final userId = _uuid.v4();
     final userData = user.toJson();
     await firestoreHelper.setData(
-      path: 'users/$userId',
+      path: 'USERS/$userId',
       data: userData,
     );
   }

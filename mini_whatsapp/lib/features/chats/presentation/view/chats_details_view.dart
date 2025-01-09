@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dash_chat_2/dash_chat_2.dart';
+import '../view_model/chat_cubit.dart';
 
 class ChatDetailsView extends StatelessWidget {
-  const ChatDetailsView({super.key});
+  final String chatId;
+
+  const ChatDetailsView({super.key, required this.chatId});
 
   @override
   Widget build(BuildContext context) {
-    final List<ChatUser> chatUsers = _generateChatUsers();
-    final List<ChatMessage> messages = _generateDummyMessages(chatUsers);
-
     return Scaffold(
-      backgroundColor:
-          const Color(0xFFECE5DD), // WhatsApp-like background color
+      backgroundColor: const Color(0xFFECE5DD),
       appBar: _buildAppBar(),
-      body: _buildChatBody(messages),
+      body: BlocConsumer<ChatCubit, ChatState>(
+        listener: (context, state) {
+          if (state is ChatMessageError) {
+            _showErrorSnackBar(context, state.message);
+          }
+        },
+        builder: (context, state) {
+          if (state is ChatLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is ChatLoaded) {
+            return _buildChatBody(context, state.chats.cast<ChatMessage>());
+          }
+          return const Center(child: Text("Start chatting!"));
+        },
+      ),
     );
   }
 
+  // Builds the AppBar widget
   AppBar _buildAppBar() {
     return AppBar(
       title: const Text("Chats"),
@@ -24,18 +39,17 @@ class ChatDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _buildChatBody(List<ChatMessage> messages) {
+  // Builds the chat body with messages
+  Widget _buildChatBody(BuildContext context, List<ChatMessage> messages) {
     return DashChat(
-      currentUser: ChatUser(id: "0"), // Set the current user ID here
+      currentUser: ChatUser(id: "0"),
       messages: messages,
       onSend: (ChatMessage message) {
-        messages.insert(0, message); // Add the message to the list
+        _sendMessage(context, message);
       },
       messageOptions: const MessageOptions(
-        currentUserContainerColor:
-            Color(0xFFE2FFC7), // Green bubble for sent messages
-        containerColor:
-            Color(0xFFFFFFFF), // Light gray bubble for received messages
+        currentUserContainerColor: Color(0xFFE2FFC7), // Green bubble for sent messages
+        containerColor: Color(0xFFFFFFFF), // Light gray bubble for received messages
         textColor: Colors.black, // Text color for received messages
         currentUserTextColor: Colors.black, // Text color for sent messages
       ),
@@ -43,6 +57,7 @@ class ChatDetailsView extends StatelessWidget {
     );
   }
 
+  // Input field styling options
   InputOptions _buildInputOptions() {
     return InputOptions(
       inputDecoration: InputDecoration(
@@ -54,80 +69,19 @@ class ChatDetailsView extends StatelessWidget {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(30),
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       ),
       inputTextStyle: const TextStyle(color: Colors.black),
     );
   }
 
-  List<ChatUser> _generateChatUsers() {
-    return [
-      ChatUser(
-          id: "1",
-          firstName: "Brooklyn",
-          lastName: "Simmons",
-          profileImage:
-              "https://cdn-icons-png.flaticon.com/512/4140/4140037.png"),
-      ChatUser(
-          id: "2",
-          firstName: "Robert",
-          lastName: "Fox",
-          profileImage:
-              "https://cdn-icons-png.flaticon.com/512/4140/4140037.png"),
-      ChatUser(
-          id: "3",
-          firstName: "Darrell",
-          lastName: "Steward",
-          profileImage:
-              "https://cdn-icons-png.flaticon.com/512/4140/4140037.png"),
-      ChatUser(
-          id: "4",
-          firstName: "Ronald",
-          lastName: "Richards",
-          profileImage:
-              "https://cdn-icons-png.flaticon.com/512/4140/4140037.png"),
-      ChatUser(
-          id: "5",
-          firstName: "Marvin",
-          lastName: "McKinney",
-          profileImage:
-              "https://cdn-icons-png.flaticon.com/512/4140/4140037.png"),
-      ChatUser(
-          id: "6",
-          firstName: "Jerome",
-          lastName: "Bell",
-          profileImage:
-              "https://cdn-icons-png.flaticon.com/512/4140/4140037.png"),
-    ];
+  void _showErrorSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 
-  List<ChatMessage> _generateDummyMessages(List<ChatUser> chatUsers) {
-    return [
-      ChatMessage(
-          text: "Photo",
-          user: chatUsers[0],
-          createdAt: DateTime.now().subtract(const Duration(minutes: 1))),
-      ChatMessage(
-          text: "I'll see you in a bit",
-          user: chatUsers[1],
-          createdAt: DateTime.now().subtract(const Duration(minutes: 2))),
-      ChatMessage(
-          text: "I'll see you in a bit",
-          user: chatUsers[2],
-          createdAt: DateTime.now().subtract(const Duration(minutes: 3))),
-      ChatMessage(
-          text: "I'll see you in a bit",
-          user: chatUsers[3],
-          createdAt: DateTime.now().subtract(const Duration(minutes: 4))),
-      ChatMessage(
-          text: "I'll see you in a bit",
-          user: chatUsers[4],
-          createdAt: DateTime.now().subtract(const Duration(minutes: 5))),
-      ChatMessage(
-          text: "Video",
-          user: chatUsers[5],
-          createdAt: DateTime.now().subtract(const Duration(minutes: 6))),
-    ];
+  void _sendMessage(BuildContext context, ChatMessage message) {
+    context.read<ChatCubit>().sendMessage(chatId, message.text);
   }
 }

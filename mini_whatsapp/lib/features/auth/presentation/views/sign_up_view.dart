@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/common/full_scroll_screen_container.dart';
-import '../../../../injection_container.dart';
 import '../view_model/auth_cubit/auth_cubit.dart';
 import 'widgets/signup_widgets/sign_up_state_listener.dart';
 import 'widgets/signup_widgets/sign_up_form.dart';
@@ -41,23 +40,20 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<AuthCubit>(),
-      child: FullScrollScreenContainer(
-        hasHight: true,
-        body: BlocConsumer<AuthCubit, AuthState>(
-          listener: signUpStateListener(context),
-          builder: (context, state) {
-            return buildSignUpForm(
-              context,
-              _signUpFormKey,
-              _signUpUsernameController,
-              _signUpEmailController,
-              _signUpPhoneController,
-              _signUpPasswordController,
-            );
-          },
-        ),
+    return FullScrollScreenContainer(
+      hasHight: true,
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: signUpStateListener(context),
+        builder: (context, state) {
+          return buildSignUpForm(
+            context,
+            _signUpFormKey,
+            _signUpUsernameController,
+            _signUpEmailController,
+            _signUpPhoneController,
+            _signUpPasswordController,
+          );
+        },
       ),
     );
   }

@@ -40,30 +40,27 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<ProfileCubit>(),
-      child: FullScrollScreenContainer(
-        hasHight: true,
-        body: BlocConsumer<ProfileCubit, ProfileState>(
-          listener: (context, state) {
-            editProfileStateListener(context, state);
-          },
-          builder: (context, state) {
-            if (state is ProfileLoaded) {
-              _usernameController.text = state.user!.name ?? '';
-              _emailController.text = state.user!.email ?? '';
-              _phoneController.text = state.user!.phone ?? '';
-            }
+    return FullScrollScreenContainer(
+      hasHight: true,
+      body: BlocConsumer<ProfileCubit, ProfileState>(
+        listener: (context, state) {
+          editProfileStateListener(context, state);
+        },
+        builder: (context, state) {
+          if (state is ProfileLoaded) {
+            _usernameController.text = state.user!.name ?? '';
+            _emailController.text = state.user!.email ?? '';
+            _phoneController.text = state.user!.phone ?? '';
+          }
 
-            return buildEditProfileForm(
-              context,
-              _editProfileFormKey,
-              _usernameController,
-              _emailController,
-              _phoneController,
-            );
-          },
-        ),
+          return buildEditProfileForm(
+            context,
+            _editProfileFormKey,
+            _usernameController,
+            _emailController,
+            _phoneController,
+          );
+        },
       ),
     );
   }

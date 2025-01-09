@@ -12,7 +12,7 @@ class ProfileRepoImpl implements ProfileRepo {
   Future<Either<Failure, UserModel?>> editProfile({required UserModel user, required String uid}) async {
     try {
       await firestoreHelper.setData(
-        path: 'users/$uid',
+        path: 'USERS/$uid',
         data: user.toJson(),
       );
       return Right(user);
@@ -24,7 +24,7 @@ class ProfileRepoImpl implements ProfileRepo {
   @override
   Future<Either<Failure, UserModel?>> getProfile({required String uid}) async {
     try {
-      final document = await firestoreHelper.fetchDocument(path: 'users/$uid');
+      final document = await firestoreHelper.fetchDocument(path: 'USERS/$uid');
       if (document != null) {
         return Right(UserModel.fromJson(document));
       } else {
